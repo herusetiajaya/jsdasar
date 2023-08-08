@@ -1,0 +1,106 @@
+<html>
+     <head>
+          <title>Latihan</title>
+          <style>
+               #box {
+                    width: 365px;
+                    height: 300px;
+                    background: orange;
+                    align-items: center;
+                    border: 10px solid;
+                    border-radius: 10px;
+                    float: left ;
+               }
+               #btnChcolor {
+                    width: 70px;
+                    height: 70px;
+                    float: right;
+                    background: navy;
+                    color: white;
+                    margin-top: 20px;
+                    border-radius: 100%;
+               }
+               #btnChcolorF {width: 70px;
+                    height: 70px;
+                    float: left;
+                    background: navy;
+                    color: white;
+                    margin-top: 20px;
+                    border-radius: 100%;
+               }
+               #nameColor {
+                    text-align: center;
+                    color: black;
+                    background: white;
+               }
+               h1 {
+                    float: left;
+               }
+               #angka {
+                    float: right;
+               }
+               
+          </style>
+     </head>
+     <body>
+          <h1 id="title">JavaScript DOM</h1>
+          <h1 id="angka">0</h1>
+          <div id="box">
+               <h2 id="nameColor">orange</h2>
+          </div>
+          <button id="btnChcolor" hidden>Changes Color</button>
+          <button id="btnChcolorF" hidden>Disko</button></button>
+<script>
+const bgColor = ['orange', 'blue', 'green', 'brown', 'navy', 'aqua', 'turquoise', 'maroon', 'yellow', 'gray', 'salmon', 'purple', 'black', 'pink', 'orchid', 'red', 'azure', 'lime', 'wheat', 'crimson', 'silver', 'teal'];
+let numbr = 0;
+let h1Judul = document.getElementsByTagName("h1");
+let box = document.getElementById("box");
+let nameColor = document.getElementById("nameColor");
+let btnChcol = document.getElementById("btnChcolor");
+let btnChcolF = document.getElementById("btnChcolorF");
+//box.addEventListener("click", changeColor, true);
+box.onclick = () => {
+     btnChcol.hidden = "";
+     btnChcolF.hidden = "";
+     clearInterval(setIn);
+     numbr--;
+     if (numbr < 0) {
+          numbr = bgColor.length-1;
+          box.style.background = bgColor[numbr];
+          nameColor.innerHTML = bgColor[numbr];
+          h1Judul[0].style.color = bgColor[numbr];
+          h1Judul[1].innerHTML = numbr;
+     } else {
+          box.style.background = bgColor[numbr];
+          nameColor.innerHTML = bgColor[numbr];
+          h1Judul[0].style.color = bgColor[numbr];
+          h1Judul[1].innerHTML = numbr;
+     }
+}
+let setIn = setInterval(changeColor, 500);
+btnChcol.addEventListener("click", changeColor, true);
+function changeColor () {
+     if (numbr >= bgColor.length-1) {
+          numbr = 0;
+          box.style.background = bgColor[numbr];
+          h1Judul[0].style.color = bgColor[numbr];
+          h1Judul[1].innerHTML = numbr;
+          nameColor.innerHTML = bgColor[numbr];
+     } else {
+          numbr++;
+          box.style.background = bgColor[numbr];
+          h1Judul[0].style.color = bgColor[numbr];
+          h1Judul[1].innerHTML = numbr;
+          nameColor.innerHTML = bgColor[numbr];
+     }
+}
+btnChcolF.onclick = () => {
+     setInterval(changeColor, 100);
+     box.style.height = "670px";
+     nameColor.remove();
+     btnChcol.remove();
+     btnChcolF.remove();
+}
+</script>
+     </body>
+</html>

@@ -1,0 +1,230 @@
+<html>
+     <head>
+          <title>JavaScript</title>
+          <style>
+               #container {
+                    width: 200px;
+                    height: 150px;
+                    background: green;
+                    position: relative;
+               }
+               #box {
+                    width: 50px;
+                    height: 50px;
+                    background: red;
+                    position: absolute;
+               }
+               #btn {
+                    color: blue;
+                    margin-top: 20px;
+                    background: salmon;
+                    font-weight: bold;
+                    width: 100px;
+                    height: 50;
+               }
+               #inputText {
+                    margin-top: 20px;
+               }
+               #demo {
+                    margin-top: 20px;
+               }
+               #slider {
+                    background: yellow;
+                    width: 150px;
+                    height: 150px;
+                    text-align: center;
+                    float: none;
+                    margin-left: 120px;
+                    margin-right: 10px;
+               }
+               #numb {
+                   
+               }
+              .btnsli {
+                   width: 48px;
+                   height: 30px;
+                   float: left;
+                   margin-left: 98px;
+                   margin-top: 3px;
+              }
+              #playFColor {
+                   float: left;
+                   margin-left: 300px;
+              }
+              #myform {
+                   float: left;
+                   margin-top: 20px;
+                   margin-left: 30px;
+              }
+          </style>
+     </head>
+     <body>
+          <h1>DOM</h1>
+          <h2 id="title">DOM</h2>
+          <h2 class="grett">DOM</h2>
+          <div id="container">
+            <div id="box"> </div>
+          </div>
+          <button id="btn" type="button">Click here</button>
+          <button id="btn" class="btnCoba" type="button">Coba</button>
+          <br>
+          <input type="text" id="inputText" placeholder="toUpperCase">
+          <input type="text" id="inputTextP" placeholder="coba password ">
+          <br>
+          <button id="demo">addEventListener</button>
+          <button id="coba">COBA</button>
+          <br><hr>
+          <button id="playFColor">PlayFastColor</button>
+          <div id="slider"><p id="numb">0</p></div>
+          <button id="prev" class="btnsli">&laquo;</button>
+          <button id="next" class="btnsli">&raquo;</button>
+          
+          <form method="post" id="myform">
+            Number:
+            <input type="text" name="num1" id="num1"/><br/>
+            Repeat:
+            <input type="text" name="num2" id="num2"/><br />
+            <input type="submit" value="Submit" />
+          </form>
+<script>
+// Selecting Elements
+// document.write ('Hello, World!');
+// document.body.innerHTML = "Welcome";
+let changeText = document.getElementsByTagName ("h1");
+changeText[0].innerHTML = "JavaScript DOM";
+let changeTitle = document.getElementById ("title");
+changeTitle.innerHTML = "Learn DOM";
+let changeGrett = document.getElementsByClassName ("grett");
+changeGrett[0].innerHTML = "Morning";
+
+// Changing Elements Atributs
+// Changing Elements Style
+// Creating Elements
+// Remove Elements
+// Replacing Elements
+
+// Creating Animations
+let pos = 0; // starting position
+let box = document.getElementById("box"); // our box element 
+// Creates a timer to move 
+let t = setInterval(move, 10);
+function move() {
+  if(pos >= 150) {
+    clearInterval(t);
+  } else {
+    pos +=1;
+    box.style.left = pos+"px"; //px = pixels
+  }
+};
+
+// Handling Events
+let btnClick = document.getElementById("btn");
+btnClick.onclick = () => {
+     btnClick.style.color = "yellow";
+     btnClick.style.background = "blue";
+};
+// coba
+let btnCoba = document.getElementsByClassName("btnCoba");
+btnCoba[0].onclick = () => {
+     document.body.innerHTML = Date();
+}
+
+// Events
+let inputTxt = document.getElementById("inputText");
+inputTxt.onchange = () => {
+     inputTxt.value = inputTxt.value.toUpperCase();
+};
+// coba
+let inputTxtP = document.getElementById("inputTextP");
+inputTxtP.onchange = () => {
+     inputTxtP.type = "password";
+};
+// Events Listener 
+window.onload = function () {
+let btn = document.getElementById("demo");
+btn.addEventListener("click", myFunction, true); // Capturing
+function myFunction() {
+   alert (Math.random());
+   btn.removeEventListener("click", myFunction);
+}
+};
+// coba
+let cba = document.getElementById("coba");
+cba.addEventListener("mouseover", () => {
+     alert ("Hello, Stranger");
+}, false); // Bubbling
+
+// images slider
+let bgColor = ['yellow', 'green', 'blue', 'red', 'gray', 'salmon', 'purple', 'brown', 'black', 'pink', 'orange', 'aqua', 'navy', 'maroon'];
+let slider = document.getElementById("slider");
+let next = document.getElementById("next");
+let prev = document.getElementById("prev");
+let numbr = document.getElementById("numb");
+numbr.style.color = "white";
+let numb = 0;
+let playCol = setInterval(playColor, 500);
+function playColor () {
+     if(numb >= bgColor.length-1) {
+          numb = 0;
+          slider.style.background = bgColor[numb];
+          numbr.innerHTML = numb;
+          numbr.style.color = "black";
+     } else {
+          numb +=1;
+          slider.style.background = bgColor[numb];
+          numbr.innerHTML = numb;
+          numbr.style.color = "white";
+     }
+}
+next.onclick = () => {
+     clearInterval(playCol);
+     numb++;
+     if (numb >= bgColor.length) {
+          numb = 0;
+     }
+     slider.style.background = bgColor[numb];
+     numbr.innerHTML = numb;
+}
+prev.onclick = () => {
+     clearInterval(playCol);
+     numb--;
+     if (numb < 0) {
+          numb = bgColor.length-1;
+     }
+     slider.style.background = bgColor[numb];
+     numbr.innerHTML = numb;
+}
+slider.onclick = () => {
+     playColor();
+}
+// coba
+let playFastColorr = document.getElementById("playFColor");
+playFastColorr.onclick = () => {
+     playFastColorr.remove();
+     setInterval(playColor, 100); 
+     next.remove();
+     prev.remove();
+     numbr.remove();
+     slider.style.margin = "0";
+     // slider.style.width = "100%";
+     // slider.style.height = "100%";
+     body.remove();
+}
+
+// Form Validation
+let myForm = document.getElementById('myform');
+myForm.onsubmit = function validation() {
+     let n1 = document.getElementById('num1');
+     let n2 = document.getElementById('num2');
+     if(n1.value != '' && n2.value != '') {
+        if(n1.value == n2.value) {
+            return true;
+        }
+    }
+    alert("The values should be equal and not blank");
+    return false;
+}
+
+</script>
+     </body>
+</html>
